@@ -3,6 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import { DemoModeProvider } from '@/context/DemoModeContext';
 import { RoutesProvider } from '@/context/RoutesContext';
 import { SimulationProvider } from '@/context/SimulationContext';
+import { TripProvider } from '@/context/TripContext';
 import { AuthProvider } from '@/context/AuthContext';
 import { Home } from './pages/Home';
 import { Tracking } from './pages/Tracking';
@@ -16,6 +17,7 @@ import { PassengerSignup } from './pages/PassengerSignup';
 import { PassengerDashboard } from './pages/PassengerDashboard';
 import { DriverLogin } from './pages/DriverLogin';
 import { RequirePassenger, RequireDriver } from './components/ProtectedRoute';
+import { TripStatusOverlay } from './components/TripStatusOverlay';
 
 export default function App() {
   return (
@@ -23,24 +25,27 @@ export default function App() {
       <DemoModeProvider>
         <RoutesProvider>
           <SimulationProvider>
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/tracking/:busId" element={<Tracking />} />
-                <Route path="/lost-found" element={<LostFound />} />
-                <Route path="/assistant" element={<Assistant />} />
-                <Route path="/about" element={<About />} />
+            <TripProvider>
+              <BrowserRouter>
+                <TripStatusOverlay />
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/tracking/:busId" element={<Tracking />} />
+                  <Route path="/lost-found" element={<LostFound />} />
+                  <Route path="/assistant" element={<Assistant />} />
+                  <Route path="/about" element={<About />} />
 
-                <Route path="/passenger/login" element={<PassengerLogin />} />
-                <Route path="/passenger/signup" element={<PassengerSignup />} />
-                <Route path="/passenger/dashboard" element={<RequirePassenger><PassengerDashboard /></RequirePassenger>} />
+                  <Route path="/passenger/login" element={<PassengerLogin />} />
+                  <Route path="/passenger/signup" element={<PassengerSignup />} />
+                  <Route path="/passenger/dashboard" element={<RequirePassenger><PassengerDashboard /></RequirePassenger>} />
 
-                <Route path="/driver/login" element={<DriverLogin />} />
-                <Route path="/driver" element={<RequireDriver><Driver /></RequireDriver>} />
+                  <Route path="/driver/login" element={<DriverLogin />} />
+                  <Route path="/driver" element={<RequireDriver><Driver /></RequireDriver>} />
 
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </TripProvider>
           </SimulationProvider>
         </RoutesProvider>
       </DemoModeProvider>

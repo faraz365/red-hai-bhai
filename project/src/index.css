@@ -2217,3 +2217,63 @@ button {
     font-size: 24px;
   }
 }
+
+/* ===== Floating trip status overlay ===== */
+.trip-overlay {
+  position: fixed;
+  bottom: 78px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border-radius: 30px;
+  box-shadow: 0 6px 20px rgba(13, 42, 91, 0.18);
+  overflow: hidden;
+}
+
+.trip-overlay-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--green);
+  background: transparent;
+  white-space: nowrap;
+}
+
+.trip-overlay-btn .pulse-dot {
+  display: inline-block;
+}
+
+.trip-overlay-stop {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--red);
+  white-space: nowrap;
+}
+
+.trip-overlay-stop:hover {
+  opacity: 0.88;
+}
+
+@media (max-width: 480px) {
+  .trip-overlay {
+    bottom: 72px;
+  }
+
+  .trip-overlay-btn,
+  .trip-overlay-stop {
+    padding: 10px 13px;
+    font-size: 11px;
+  }
+}

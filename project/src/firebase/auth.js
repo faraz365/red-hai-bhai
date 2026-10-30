@@ -6,7 +6,6 @@ import {
 } from 'firebase/auth';
 import { auth } from './config';
 
-let authReadyPromise = null;
 const errorListeners = new Set();
 
 function setAuthError(error) {
@@ -46,16 +45,15 @@ export function getCurrentUser() {
  */
 export function waitForAuth() {
   if (!auth) return Promise.resolve(null);
-  if (!authReadyPromise) {
-    authReadyPromise = new Promise((resolve) => {
-      const unsub = onAuthStateChanged(auth, (user) => {
-        if (authError) setAuthError(null);
-        unsub();
-        resolve(user);
-      });
+  const current = auth.currentUser;
+  if (current) return Promise.resolve(current);
+  return new Promise((resolve) => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (authError) setAuthError(null);
+      unsub();
+      resolve(user);
     });
-  }
-  return authReadyPromise;
+  });
 }
 
 export async function signUpWithEmail(email, password) {

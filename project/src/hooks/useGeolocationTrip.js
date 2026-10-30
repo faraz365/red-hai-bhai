@@ -214,10 +214,6 @@ export function useGeolocationTrip() {
     return () => document.removeEventListener('visibilitychange', onVisible);
   }, [acquireWakeLock]);
 
-  useEffect(() => () => {
-    if (activeRef.current) stopTrip();
-  }, [stopTrip]);
-
   return {
     tracking,
     trackingStatus,

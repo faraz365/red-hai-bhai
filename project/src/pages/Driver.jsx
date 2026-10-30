@@ -3,14 +3,14 @@ import { Navigation, Play, Square, CircleAlert, Wifi, Signal, Radio } from 'luci
 import { Shell } from '../components/Shell';
 import { DiagnosticsPanel } from '../components/DiagnosticsPanel';
 import { useRoutesContext } from '@/context/RoutesContext';
-import { useGeolocationTrip } from '@/hooks/useGeolocationTrip';
+import { useTrip } from '@/context/TripContext';
 import { useNow } from '@/hooks/useNow';
 import { isFirebaseConfigured } from '@/firebase';
 import { formatSecondsAgo } from '@/utils/time';
 
 export function Driver() {
   const { routes } = useRoutesContext();
-  const trip = useGeolocationTrip();
+  const trip = useTrip();
   const now = useNow();
   const [selectedId, setSelectedId] = useState(routes[0]?.id);
   const selectedRoute = routes.find((route) => route.id === selectedId) ?? routes[0];
